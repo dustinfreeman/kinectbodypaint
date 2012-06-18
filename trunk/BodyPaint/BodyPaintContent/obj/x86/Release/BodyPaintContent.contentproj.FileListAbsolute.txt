@@ -1,0 +1,2 @@
+C:\Users\Dustin\Documents\Research Code\Kinect Workshop\BodyPaint\BodyPaintContent\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\Dustin\Documents\Research Code\Kinect Workshop\kinectbodypaint\BodyPaint\BodyPaintContent\obj\x86\Release\ResolveAssemblyReference.cache

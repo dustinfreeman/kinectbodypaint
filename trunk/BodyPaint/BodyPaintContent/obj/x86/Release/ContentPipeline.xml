@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>ChooserBackground.png</Source>
+      <Name>ChooserBackground</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Dustin\Documents\Research Code\Kinect Workshop\kinectbodypaint\BodyPaint\BodyPaint\bin\x86\Release\Content\ChooserBackground.xnb</Output>
+      <Time>2012-06-18T14:55:48.5662153+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Bone.png</Source>
+      <Name>Bone</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Dustin\Documents\Research Code\Kinect Workshop\kinectbodypaint\BodyPaint\BodyPaint\bin\x86\Release\Content\Bone.xnb</Output>
+      <Time>2012-06-18T14:56:56.5657008+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Header.png</Source>
+      <Name>Header</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Dustin\Documents\Research Code\Kinect Workshop\kinectbodypaint\BodyPaint\BodyPaint\bin\x86\Release\Content\Header.xnb</Output>
+      <Time>2012-06-18T14:56:56.5813008+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Joint.png</Source>
+      <Name>Joint</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Dustin\Documents\Research Code\Kinect Workshop\kinectbodypaint\BodyPaint\BodyPaint\bin\x86\Release\Content\Joint.xnb</Output>
+      <Time>2012-06-18T14:56:56.5813008+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Segoe16.spritefont</Source>
+      <Name>Segoe16</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Dustin\Documents\Research Code\Kinect Workshop\kinectbodypaint\BodyPaint\BodyPaint\bin\x86\Release\Content\Segoe16.xnb</Output>
+      <Time>2012-06-18T14:55:56.051043+01:00</Time>
+    </Item>
+    <Item>
+      <Source>KinectColorVisualizer.fx</Source>
+      <Name>KinectColorVisualizer</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Dustin\Documents\Research Code\Kinect Workshop\kinectbodypaint\BodyPaint\BodyPaint\bin\x86\Release\Content\KinectColorVisualizer.xnb</Output>
+      <Time>2012-06-18T14:56:31.0609728+01:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>HiDef</TargetProfile>
+      <BuildConfiguration>Release</BuildConfiguration>
+      <CompressContent>true</CompressContent>
+      <RootDirectory>C:\Users\Dustin\Documents\Research Code\Kinect Workshop\kinectbodypaint\BodyPaint\BodyPaintContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Dustin\Documents\Research Code\Kinect Workshop\kinectbodypaint\BodyPaint\BodyPaint\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Dustin\Documents\Research Code\Kinect Workshop\kinectbodypaint\BodyPaint\BodyPaintContent\obj\x86\Release\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Dustin\Documents\Research Code\Kinect Workshop\kinectbodypaint\BodyPaint\BodyPaint\bin\x86\Release\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2010-08-23T12:41:18+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2010-08-23T12:41:18+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2012-06-16T16:28:31.6327557+01:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
