@@ -151,73 +151,73 @@ namespace BodyPaint
 
             this.SharedSpriteBatch.Begin();
 
-            foreach (var skeleton in skeletonData)
-            {
-                switch (skeleton.TrackingState)
-                {
-                    case SkeletonTrackingState.Tracked:
-                        // Draw Bones
-                        this.DrawBone(skeleton.Joints, JointType.Head, JointType.ShoulderCenter);
-                        this.DrawBone(skeleton.Joints, JointType.ShoulderCenter, JointType.ShoulderLeft);
-                        this.DrawBone(skeleton.Joints, JointType.ShoulderCenter, JointType.ShoulderRight);
-                        this.DrawBone(skeleton.Joints, JointType.ShoulderCenter, JointType.Spine);
-                        this.DrawBone(skeleton.Joints, JointType.Spine, JointType.HipCenter);
-                        this.DrawBone(skeleton.Joints, JointType.HipCenter, JointType.HipLeft);
-                        this.DrawBone(skeleton.Joints, JointType.HipCenter, JointType.HipRight);
+            //foreach (var skeleton in skeletonData)
+            //{
+            //    switch (skeleton.TrackingState)
+            //    {
+            //        case SkeletonTrackingState.Tracked:
+            //            // Draw Bones
+            //            this.DrawBone(skeleton.Joints, JointType.Head, JointType.ShoulderCenter);
+            //            this.DrawBone(skeleton.Joints, JointType.ShoulderCenter, JointType.ShoulderLeft);
+            //            this.DrawBone(skeleton.Joints, JointType.ShoulderCenter, JointType.ShoulderRight);
+            //            this.DrawBone(skeleton.Joints, JointType.ShoulderCenter, JointType.Spine);
+            //            this.DrawBone(skeleton.Joints, JointType.Spine, JointType.HipCenter);
+            //            this.DrawBone(skeleton.Joints, JointType.HipCenter, JointType.HipLeft);
+            //            this.DrawBone(skeleton.Joints, JointType.HipCenter, JointType.HipRight);
 
-                        this.DrawBone(skeleton.Joints, JointType.ShoulderLeft, JointType.ElbowLeft);
-                        this.DrawBone(skeleton.Joints, JointType.ElbowLeft, JointType.WristLeft);
-                        this.DrawBone(skeleton.Joints, JointType.WristLeft, JointType.HandLeft);
+            //            this.DrawBone(skeleton.Joints, JointType.ShoulderLeft, JointType.ElbowLeft);
+            //            this.DrawBone(skeleton.Joints, JointType.ElbowLeft, JointType.WristLeft);
+            //            this.DrawBone(skeleton.Joints, JointType.WristLeft, JointType.HandLeft);
 
-                        this.DrawBone(skeleton.Joints, JointType.ShoulderRight, JointType.ElbowRight);
-                        this.DrawBone(skeleton.Joints, JointType.ElbowRight, JointType.WristRight);
-                        this.DrawBone(skeleton.Joints, JointType.WristRight, JointType.HandRight);
+            //            this.DrawBone(skeleton.Joints, JointType.ShoulderRight, JointType.ElbowRight);
+            //            this.DrawBone(skeleton.Joints, JointType.ElbowRight, JointType.WristRight);
+            //            this.DrawBone(skeleton.Joints, JointType.WristRight, JointType.HandRight);
 
-                        this.DrawBone(skeleton.Joints, JointType.HipLeft, JointType.KneeLeft);
-                        this.DrawBone(skeleton.Joints, JointType.KneeLeft, JointType.AnkleLeft);
-                        this.DrawBone(skeleton.Joints, JointType.AnkleLeft, JointType.FootLeft);
+            //            this.DrawBone(skeleton.Joints, JointType.HipLeft, JointType.KneeLeft);
+            //            this.DrawBone(skeleton.Joints, JointType.KneeLeft, JointType.AnkleLeft);
+            //            this.DrawBone(skeleton.Joints, JointType.AnkleLeft, JointType.FootLeft);
 
-                        this.DrawBone(skeleton.Joints, JointType.HipRight, JointType.KneeRight);
-                        this.DrawBone(skeleton.Joints, JointType.KneeRight, JointType.AnkleRight);
-                        this.DrawBone(skeleton.Joints, JointType.AnkleRight, JointType.FootRight);
+            //            this.DrawBone(skeleton.Joints, JointType.HipRight, JointType.KneeRight);
+            //            this.DrawBone(skeleton.Joints, JointType.KneeRight, JointType.AnkleRight);
+            //            this.DrawBone(skeleton.Joints, JointType.AnkleRight, JointType.FootRight);
 
-                        // Now draw the joints
-                        foreach (Joint j in skeleton.Joints)
-                        {
-                            Color jointColor = Color.Green;
-                            if (j.TrackingState != JointTrackingState.Tracked)
-                            {
-                                jointColor = Color.Yellow;
-                            }
+            //            // Now draw the joints
+            //            foreach (Joint j in skeleton.Joints)
+            //            {
+            //                Color jointColor = Color.Green;
+            //                if (j.TrackingState != JointTrackingState.Tracked)
+            //                {
+            //                    jointColor = Color.Yellow;
+            //                }
 
-                            this.SharedSpriteBatch.Draw(
-                                this.jointTexture,
-                                this.mapMethod(j.Position),
-                                null,
-                                jointColor,
-                                0.0f,
-                                this.jointOrigin,
-                                1.0f,
-                                SpriteEffects.None,
-                                0.0f);
-                        }
+            //                this.SharedSpriteBatch.Draw(
+            //                    this.jointTexture,
+            //                    this.mapMethod(j.Position),
+            //                    null,
+            //                    jointColor,
+            //                    0.0f,
+            //                    this.jointOrigin,
+            //                    1.0f,
+            //                    SpriteEffects.None,
+            //                    0.0f);
+            //            }
 
-                        break;
-                    case SkeletonTrackingState.PositionOnly:
-                        // If we are only tracking position, draw a blue dot
-                        this.SharedSpriteBatch.Draw(
-                                this.jointTexture,
-                                this.mapMethod(skeleton.Position),
-                                null,
-                                Color.Blue,
-                                0.0f,
-                                this.jointOrigin,
-                                1.0f,
-                                SpriteEffects.None,
-                                0.0f);
-                        break;
-                }
-            }
+            //            break;
+            //        case SkeletonTrackingState.PositionOnly:
+            //            // If we are only tracking position, draw a blue dot
+            //            this.SharedSpriteBatch.Draw(
+            //                    this.jointTexture,
+            //                    this.mapMethod(skeleton.Position),
+            //                    null,
+            //                    Color.Blue,
+            //                    0.0f,
+            //                    this.jointOrigin,
+            //                    1.0f,
+            //                    SpriteEffects.None,
+            //                    0.0f);
+            //            break;
+            //    }
+            //}
 
             this.SharedSpriteBatch.End();
             skeletonDrawn = true;
