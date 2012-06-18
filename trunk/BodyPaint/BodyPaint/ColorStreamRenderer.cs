@@ -10,6 +10,7 @@ namespace BodyPaint
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using System.Collections.Generic;
+    using System;
 
     /// <summary>
     /// This class renders the current color stream frame.
@@ -49,6 +50,7 @@ namespace BodyPaint
 
         Dictionary<JointType, Color>[] ColouredJoints = new Dictionary<JointType, Color>[6];
 
+        Random random = new Random();
         public ColorStreamRenderer(Game game)
             : base(game)
         {
@@ -59,12 +61,9 @@ namespace BodyPaint
                 ColouredJoints[sk] = new Dictionary<JointType, Color>();
                 for (int jt = 0; jt < 20; jt++)
                 {
-                    ColouredJoints[sk].Add((JointType)jt, Color.Transparent);
+                    Color r = new Color((byte)random.Next(255), (byte)random.Next(255), (byte)random.Next(255), 255);
+                    ColouredJoints[sk].Add((JointType)jt, r);
                 }
-
-                ColouredJoints[sk][JointType.AnkleLeft] = Color.Blue;
-                ColouredJoints[sk][JointType.Head] = Color.Blue;
-                ColouredJoints[sk][JointType.HipCenter] = Color.Blue;
             }
         }
 
@@ -153,37 +152,50 @@ namespace BodyPaint
                     this.depthData = new short[frame.PixelDataLength];
 
                 }
-
                 frame.CopyPixelDataTo(this.depthData);
             }
 
-            //iterate through colour pixels.
-            for (int x = 0; x < 640; x ++)
+            if (SkeletonStreamRenderer.skeletonData == null)
+                return;
+
+            //get skeleton points
+            Dictionary<JointType, Vector2>[] SkeletonPoints2D = new Dictionary<JointType, Vector2>[6];
+            for (int sk = 0; sk < 6; sk++)
             {
-                for (int y = 0; y < 480; y++)
+                SkeletonPoints2D[sk] = new Dictionary<JointType, Vector2>();
+
+                Skeleton skeleton = SkeletonStreamRenderer.skeletonData[sk];
+                foreach (Joint jt in skeleton.Joints)
+                {
+                    SkeletonPoints2D[sk].Add(jt.JointType, SkeletonToColorMap(jt.Position));
+                }
+            }
+
+            //iterate through colour pixels.
+            for (int y = 0; y < 480; y++)
+            {
+                for (int x = 0; x < 640; x++)
                 {
                     int d = x + y * 640;
-                    int id = (this.depthData[d] & 0x07);
+                    int id = (this.depthData[d] & 0x07) - 1;
                     Vector2 pixel = new Vector2(x, y);
 
-                    if (id == 0)
+                    if (id == - 1 )
                         continue;
-
-                    Skeleton skeleton = SkeletonStreamRenderer.skeletonData[id - 1];
 
                     double _R = 0;
                     double _G = 0;
                     double _B = 0;
                     double _A = 0;
                     double _sum = 0, coeff;
-                    foreach (Joint jt in skeleton.Joints)
+                    for (int j = 0; j < 20; j++)
                     {
-                        Vector2 pos = SkeletonToColorMap(jt.Position);
+                        Vector2 pos = SkeletonPoints2D[id][(JointType)j];
                         double dist = Vector2.DistanceSquared(pos, pixel);
                         if (dist > 150*150)
                             continue;
 
-                        Color jointColor = ColouredJoints[id - 1][jt.JointType];
+                        Color jointColor = ColouredJoints[id][(JointType)j];
                         coeff = 1.0 / (dist + 1);
                         _R += jointColor.R * coeff;
                         _G += jointColor.G * coeff;
