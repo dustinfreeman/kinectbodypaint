@@ -61,10 +61,14 @@ namespace BodyPaint
                 ColouredJoints[sk] = new Dictionary<JointType, Color>();
                 for (int jt = 0; jt < 20; jt++)
                 {
-                    Color r = new Color((byte)random.Next(255), (byte)random.Next(255), (byte)random.Next(255), 255);
+                    Color r = new Color((byte)random.Next(255), (byte)random.Next(255), (byte)random.Next(255), 100);
                     ColouredJoints[sk].Add((JointType)jt, r);
                 }
             }
+
+            Buckets.Add(new Color(0, 0, 255), new Rectangle(10, 100, 100, 100));
+            Buckets.Add(new Color(0, 255, 0), new Rectangle(530, 100, 100, 100));
+
         }
 
         /// <summary>
@@ -124,17 +128,103 @@ namespace BodyPaint
                 }
 
                 frame.CopyPixelDataTo(this.colorData);
-
-                DrawOverColour();
-
                 this.needToRedrawBackBuffer = true;
+
+                if (SkeletonStreamRenderer.skeletonData != null)
+                {
+                    //get skeleton points
+                    SkeletonPoints2D = new Dictionary<JointType, Vector2>[6];
+                    for (int sk = 0; sk < 6; sk++)
+                    {
+                        SkeletonPoints2D[sk] = new Dictionary<JointType, Vector2>();
+
+                        Skeleton skeleton = SkeletonStreamRenderer.skeletonData[sk];
+                        foreach (Joint jt in skeleton.Joints)
+                        {
+                            SkeletonPoints2D[sk].Add(jt.JointType, SkeletonToColorMap(jt.Position));
+                        }
+                    }
+                    FadePaint();
+                    GetPaint();
+                    DrawOverColour();
+                }
             }
 
             // Update the skeleton renderer
             this.skeletonStream.Update(gameTime);
         }
 
+        Dictionary<JointType, Vector2>[] SkeletonPoints2D;
+        Dictionary<Color, Rectangle> Buckets = new Dictionary<Color, Rectangle>();
 
+        int cnt = 0;
+        void FadePaint()
+        {
+            cnt++;
+
+            if (cnt == 60)
+            {
+                Dictionary<Color, Rectangle> nBuckets = new Dictionary<Color, Rectangle>();
+                foreach (KeyValuePair<Color, Rectangle> bucket in Buckets)
+                {
+                   Color r = new Color((byte)random.Next(255), (byte)random.Next(255), (byte)random.Next(255), 255);
+                   nBuckets.Add(r, bucket.Value);
+                }
+                Buckets = nBuckets;
+                cnt = 0;
+            }
+
+            for (int sk1 = 0; sk1 < 6; sk1++)
+            {
+                for (int jt1 = 0; jt1 < 20; jt1++)
+                {
+                    ColouredJoints[sk1][(JointType)jt1] = new Color(ColouredJoints[sk1][(JointType)jt1].R,
+                        ColouredJoints[sk1][(JointType)jt1].G, ColouredJoints[sk1][(JointType)jt1].B, Math.Max(0, ColouredJoints[sk1][(JointType)jt1].A - 1));
+                }
+            }
+        }
+
+        void GetPaint()
+        {
+            //loop over all bodies and joints
+            for (int sk1 = 0; sk1 < 6; sk1++)
+            {
+                for (int jt1 = 0; jt1 < 20; jt1++)
+                {
+                    Vector2 pos = SkeletonPoints2D[sk1][(JointType)jt1];
+
+                    //buckets
+                    foreach (KeyValuePair<Color, Rectangle> bucket in Buckets)
+                    {
+                        if (bucket.Value.Contains(new Point((int)pos.X, (int)pos.Y)))
+                        {
+                            ColouredJoints[sk1][(JointType)jt1] = bucket.Key;
+                        }
+                    }
+
+                    //other skeleton
+                    for (int sk2 = 0; sk2 < 6; sk2++)
+                    {
+                        for (int jt2 = 0; jt2 < 20; jt2++)
+                        {
+                            Vector2 otherpos = SkeletonPoints2D[sk2][(JointType)jt2];
+                            float dist = Vector2.DistanceSquared(pos,otherpos);
+                            if (dist > 20 * 20)
+                                continue;
+
+                            //check that other has more alpha.
+                            if (ColouredJoints[sk2][(JointType)jt2].A <= ColouredJoints[sk1][(JointType)jt1].A)
+                                continue;
+
+                            //set it 
+
+                            ColouredJoints[sk1][(JointType)jt1] = ColouredJoints[sk2][(JointType)jt2];
+                        }
+                    }
+                }
+            }
+
+        }
         void DrawOverColour() //THIS ONE
         {
             using (var frame = this.Chooser.Sensor.DepthStream.OpenNextFrame(0))
@@ -158,25 +248,23 @@ namespace BodyPaint
             if (SkeletonStreamRenderer.skeletonData == null)
                 return;
 
-            //get skeleton points
-            Dictionary<JointType, Vector2>[] SkeletonPoints2D = new Dictionary<JointType, Vector2>[6];
-            for (int sk = 0; sk < 6; sk++)
-            {
-                SkeletonPoints2D[sk] = new Dictionary<JointType, Vector2>();
-
-                Skeleton skeleton = SkeletonStreamRenderer.skeletonData[sk];
-                foreach (Joint jt in skeleton.Joints)
-                {
-                    SkeletonPoints2D[sk].Add(jt.JointType, SkeletonToColorMap(jt.Position));
-                }
-            }
-
             //iterate through colour pixels.
             for (int y = 0; y < 480; y++)
             {
                 for (int x = 0; x < 640; x++)
                 {
                     int d = x + y * 640;
+
+                    foreach (KeyValuePair<Color, Rectangle> kvp in Buckets)
+                    {
+                        if (kvp.Value.Contains(new Point(x,y)))
+                        {
+                            this.colorData[4 * d + 0] = kvp.Key.B;
+                            this.colorData[4 * d + 1] = kvp.Key.G;
+                            this.colorData[4 * d + 2] = kvp.Key.R;
+                        }
+                    }
+                    
                     int id = (this.depthData[d] & 0x07) - 1;
                     Vector2 pixel = new Vector2(x, y);
 
