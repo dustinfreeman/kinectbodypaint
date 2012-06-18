@@ -1,0 +1,1 @@
+C:\Users\Dustin\Documents\Research Code\Kinect Workshop\BodyPaint\BodyPaintContent\obj\x86\Debug\ResolveAssemblyReference.cache
